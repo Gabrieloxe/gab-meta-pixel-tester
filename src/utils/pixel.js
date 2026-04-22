@@ -53,6 +53,7 @@ export function initPixel(pixelId) {
 
   window.fbq('init', pixelId)
   window.fbq('track', 'PageView')
+  log('PageView', {})
 }
 
 // ─── Standard Events ──────────────────────────────────────────────────────────
