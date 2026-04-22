@@ -1,18 +1,35 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import { trackSearch } from '../utils/pixel'
 
 export default function Header() {
   const { count } = useCart()
-  const [query, setQuery] = useState('')
   const navigate = useNavigate()
+  const location = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [query, setQuery] = useState(searchParams.get('search') || '')
+
+  // Keep input in sync with URL when the search param changes
+  useEffect(() => {
+    setQuery(searchParams.get('search') || '')
+  }, [searchParams])
 
   function handleSearch(e) {
     e.preventDefault()
-    if (!query.trim()) return
-    trackSearch({ search_string: query.trim() })
-    navigate(`/?search=${encodeURIComponent(query.trim())}`)
+    const term = query.trim()
+    if (!term) {
+      if (location.pathname === '/') {
+        setSearchParams((prev) => { prev.delete('search'); return prev })
+      }
+      return
+    }
+    trackSearch({ search_string: term })
+    if (location.pathname === '/') {
+      setSearchParams((prev) => { prev.set('search', term); return prev })
+    } else {
+      navigate(`/?search=${encodeURIComponent(term)}`)
+    }
   }
 
   return (
