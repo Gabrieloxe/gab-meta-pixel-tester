@@ -9,9 +9,10 @@ const EVENT_COLORS = {
   InitiateCheckout: 'badge-secondary',
   AddPaymentInfo: 'badge-accent',
   Purchase: 'badge-error',
-  Search: 'badge-ghost',
+  Search: 'badge-neutral',
   Lead: 'badge-info',
   CompleteRegistration: 'badge-success',
+  default: 'badge-neutral',
 }
 
 export default function PixelEventLog() {
@@ -49,7 +50,7 @@ export default function PixelEventLog() {
           <div className="p-3 border-b border-base-300 shrink-0">
             <form className="join w-full" onSubmit={handleSave}>
               <input
-                className="input input-bordered input-sm join-item w-full text-xs"
+                className="input input-sm join-item w-full text-xs border border-base-300 focus:outline-none focus:border-primary"
                 type="text"
                 placeholder="Enter Pixel ID…"
                 value={input}
@@ -76,7 +77,7 @@ export default function PixelEventLog() {
             {log.map((entry) => (
               <li key={entry.id} className="card bg-base-300 border border-base-content/10 p-3">
                 <div className="flex items-center justify-between gap-2 mb-1">
-                  <span className={`badge badge-sm ${EVENT_COLORS[entry.event] ?? 'badge-ghost'}`}>
+                  <span className={`badge badge-sm ${EVENT_COLORS[entry.event] ?? 'badge-neutral'}`}>
                     {entry.event}
                   </span>
                   <span className="text-xs text-base-content/40">{entry.ts}</span>

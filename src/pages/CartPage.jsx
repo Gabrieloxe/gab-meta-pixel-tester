@@ -36,9 +36,9 @@ export default function CartPage() {
         {/* Items */}
         <div className="lg:col-span-2 flex flex-col gap-3">
           {items.map((item) => (
-            <div key={item.id} className="card card-side bg-base-200 border border-base-300">
+            <div key={item.id} className="card bg-base-200 border border-base-300 flex-row">
               <figure className="w-24 shrink-0">
-                <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                <img src={item.image} alt={item.name} className="h-full w-full object-cover rounded-l-2xl" />
               </figure>
               <div className="card-body p-4 gap-2">
                 <div className="flex items-start justify-between gap-2">

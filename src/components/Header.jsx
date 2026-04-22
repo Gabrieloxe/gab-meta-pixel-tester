@@ -42,15 +42,15 @@ export default function Header() {
       </div>
 
       <div className="flex-1 flex justify-center px-4">
-        <form className="join w-full max-w-md" onSubmit={handleSearch}>
+        <form className="flex w-full max-w-md" onSubmit={handleSearch}>
           <input
-            className="input join-item w-full border border-base-300 focus:outline-none focus:border-primary"
+            className="flex-1 h-12 px-4 rounded-l-lg bg-base-100 border border-base-300 border-r-0 text-sm placeholder:text-base-content/40 focus:outline-none focus:border-primary"
             type="text"
             placeholder="Search products…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit" className="btn btn-primary join-item">
+          <button type="submit" className="btn btn-primary rounded-l-none h-12 min-h-12">
             Search
           </button>
         </form>
