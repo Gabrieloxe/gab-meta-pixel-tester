@@ -122,3 +122,35 @@ export function trackCompleteRegistration() {
   fbq('track', 'CompleteRegistration')
   log('CompleteRegistration', {})
 }
+
+// ─── Custom Events ───────────────────────────────────────────────────────────
+
+export function trackPortableEspressoMakerViewProduct(product) {
+  const params = {
+    event_name: 'PortableEspressoMaker_ViewProduct',
+    content_type: 'product',
+    content_ids: [product.id],
+    content_name: product.name,
+    content_category: product.category,
+    value: product.price,
+    currency: 'SGD',
+  }
+  fbq('trackCustom', 'PortableEspressoMaker_ViewProduct', params)
+  log('PortableEspressoMaker_ViewProduct', params)
+}
+
+// ─── Custom Conversions ──────────────────────────────────────────────────────
+// Purchase_PortableEspressoMaker: fires when a Purchase contains prod-003
+
+export function trackPurchasePortableEspressoMaker({ content_ids, num_items, value, currency }) {
+  if (!content_ids || !content_ids.includes('prod-003')) return
+  const params = {
+    content_ids: ['prod-003'],
+    num_items,
+    value: Number(value.toFixed(2)),
+    currency: currency || 'SGD',
+    custom_conversion: 'Purchase_PortableEspressoMaker',
+  }
+  fbq('trackCustom', 'Purchase_PortableEspressoMaker', params)
+  log('Purchase_PortableEspressoMaker', params)
+}

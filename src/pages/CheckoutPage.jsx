@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { trackPageView, trackAddPaymentInfo, trackPurchase } from '../utils/pixel'
+import { trackPageView, trackAddPaymentInfo, trackPurchase, trackPurchasePortableEspressoMaker } from '../utils/pixel'
 
 export default function CheckoutPage() {
   const { items, total, dispatch } = useCart()
@@ -24,8 +24,11 @@ export default function CheckoutPage() {
 
   function handlePaymentSubmit(e) {
     e.preventDefault()
-    trackAddPaymentInfo({ content_ids: items.map((i) => i.id), value: total })
-    trackPurchase({ content_ids: items.map((i) => i.id), num_items: items.reduce((s, i) => s + i.qty, 0), value: total })
+    const contentIds = items.map((i) => i.id)
+    const numItems = items.reduce((s, i) => s + i.qty, 0)
+    trackAddPaymentInfo({ content_ids: contentIds, value: total })
+    trackPurchase({ content_ids: contentIds, num_items: numItems, value: total })
+    trackPurchasePortableEspressoMaker({ content_ids: contentIds, num_items: numItems, value: total })
     dispatch({ type: 'CLEAR' })
     navigate('/order-success')
   }

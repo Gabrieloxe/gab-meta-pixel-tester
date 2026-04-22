@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { products } from '../data/products'
 import { useCart } from '../context/CartContext'
-import { trackViewContent, trackAddToCart, trackAddToWishlist } from '../utils/pixel'
+import { trackViewContent, trackAddToCart, trackAddToWishlist, trackPortableEspressoMakerViewProduct } from '../utils/pixel'
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -13,6 +13,9 @@ export default function ProductDetail() {
   useEffect(() => {
     if (!product) return
     trackViewContent({ content_ids: [product.id], content_name: product.name, content_type: 'product', value: product.price })
+    if (product.id === 'prod-003') {
+      trackPortableEspressoMakerViewProduct(product)
+    }
   }, [product])
 
   if (!product) {
@@ -110,6 +113,7 @@ export default function ProductDetail() {
               <ul className="flex flex-col gap-1">
                 {[
                   ['ViewContent', 'on page load'],
+                  ...(product.id === 'prod-003' ? [['PortableEspressoMaker_ViewProduct', 'on page load (custom)']] : []),
                   ['AddToCart', 'on Add to Cart / Buy Now'],
                   ['AddToWishlist', 'on Wishlist button'],
                 ].map(([ev, when]) => (
