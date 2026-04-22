@@ -44,7 +44,7 @@ export default function Header() {
       <div className="flex-1 flex justify-center px-4">
         <form className="join w-full max-w-md" onSubmit={handleSearch}>
           <input
-            className="input input-bordered join-item w-full"
+            className="input join-item w-full border border-base-300 focus:outline-none focus:border-primary"
             type="text"
             placeholder="Search products…"
             value={query}
