@@ -1,13 +1,10 @@
-import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { trackPageView, trackInitiateCheckout } from '../utils/pixel'
+import { trackInitiateCheckout } from '../utils/pixel'
 
 export default function CartPage() {
   const { items, total, dispatch } = useCart()
   const navigate = useNavigate()
-
-  useEffect(() => { trackPageView() }, [])
 
   function handleCheckout() {
     trackInitiateCheckout({

@@ -56,10 +56,7 @@ export function initPixel(pixelId) {
 
 // ─── Standard Events ──────────────────────────────────────────────────────────
 
-export function trackPageView() {
-  fbq('track', 'PageView')
-  log('PageView', {})
-}
+
 
 export function trackViewContent({ content_ids, content_name, content_type, value, currency }) {
   const params = { content_ids, content_name, content_type: content_type || 'product', value, currency: currency || 'USD' }
