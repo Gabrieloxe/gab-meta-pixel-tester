@@ -34,15 +34,15 @@ export default function Header() {
 
   return (
     <header className="navbar bg-base-200/90 backdrop-blur-md border-b border-base-300 sticky top-0 z-50 px-4 gap-4">
-      <div className="navbar-start">
+      <div className="navbar-start shrink-0">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-lg font-bold text-primary">PixelShop</span>
-          <span className="badge badge-primary badge-sm font-semibold">Meta Pixel Tester</span>
+          <span className="badge badge-primary badge-sm font-semibold hidden sm:inline-flex">Meta Pixel Tester</span>
         </Link>
       </div>
 
-      <div className="navbar-center flex-1 max-w-md">
-        <form className="join w-full" onSubmit={handleSearch}>
+      <div className="flex-1 flex justify-center px-4">
+        <form className="join w-full max-w-md" onSubmit={handleSearch}>
           <input
             className="input input-bordered join-item w-full"
             type="text"
@@ -56,7 +56,7 @@ export default function Header() {
         </form>
       </div>
 
-      <div className="navbar-end gap-2">
+      <div className="navbar-end shrink-0 gap-2">
         <Link to="/" className="btn btn-ghost btn-sm">Shop</Link>
         <Link to="/cart" className="btn btn-ghost btn-sm indicator">
           <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
