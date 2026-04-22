@@ -4,10 +4,12 @@ import { initPixel, subscribeEventLog, eventLog } from '../utils/pixel'
 const PixelContext = createContext(null)
 
 export function PixelProvider({ children }) {
-  const [pixelId, setPixelIdState] = useState(
-    () => localStorage.getItem('pixelId') || import.meta.env.VITE_PIXEL_ID || ''
-  )
-  const [initialized, setInitialized] = useState(false)
+  const [pixelId, setPixelIdState] = useState(() => {
+    const id = localStorage.getItem('pixelId') || import.meta.env.VITE_PIXEL_ID || ''
+    if (id) initPixel(id)
+    return id
+  })
+  const [initialized, setInitialized] = useState(() => !!pixelId)
   const [log, setLog] = useState([...eventLog])
 
   useEffect(() => {
@@ -27,14 +29,6 @@ export function PixelProvider({ children }) {
       setInitialized(false)
     }
   }
-
-  useEffect(() => {
-    if (pixelId) {
-      initPixel(pixelId)
-      setInitialized(true)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <PixelContext.Provider value={{ pixelId, applyPixelId, initialized, log }}>
