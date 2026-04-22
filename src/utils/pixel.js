@@ -51,12 +51,16 @@ export function initPixel(pixelId) {
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
   /* eslint-enable */
 
+  window.fbq.disablePushState = true
   window.fbq('init', pixelId)
-  window.fbq('track', 'PageView')
-  log('PageView', {})
 }
 
 // ─── Standard Events ──────────────────────────────────────────────────────────
+
+export function trackPageView() {
+  fbq('track', 'PageView')
+  log('PageView', {})
+}
 
 export function trackViewContent({ content_ids, content_name, content_type, value, currency }) {
   const params = { content_ids, content_name, content_type: content_type || 'product', value, currency: currency || 'USD' }

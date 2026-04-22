@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { trackAddPaymentInfo, trackPurchase, trackPurchasePortableEspressoMaker } from '../utils/pixel'
+import { trackPageView, trackAddPaymentInfo, trackPurchase, trackPurchasePortableEspressoMaker } from '../utils/pixel'
 
 export default function CheckoutPage() {
   const { items, total, dispatch } = useCart()
   const navigate = useNavigate()
   const [step, setStep] = useState(0) // 0 = shipping, 1 = payment
   const [form, setForm] = useState({ name: '', email: '', address: '', card: '' })
+
+  useEffect(() => { trackPageView() }, [])
 
   if (items.length === 0) { navigate('/'); return null }
 

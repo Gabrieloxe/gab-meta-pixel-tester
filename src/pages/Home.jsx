@@ -1,7 +1,8 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { products } from '../data/products'
 import ProductCard from '../components/ProductCard'
+import { trackPageView } from '../utils/pixel'
 
 const CATEGORIES = ['All', ...new Set(products.map((p) => p.category))]
 
@@ -9,6 +10,8 @@ export default function Home() {
   const [params, setParams] = useSearchParams()
   const search = params.get('search') || ''
   const category = params.get('category') || 'All'
+
+  useEffect(() => { trackPageView() }, [])
 
   const filtered = useMemo(() => products.filter((p) => {
     const matchCat = category === 'All' || p.category === category
