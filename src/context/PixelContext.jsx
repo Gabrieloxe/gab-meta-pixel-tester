@@ -5,7 +5,7 @@ const PixelContext = createContext(null)
 
 export function PixelProvider({ children }) {
   const [pixelId, setPixelIdState] = useState(
-    () => import.meta.env.VITE_PIXEL_ID || localStorage.getItem('pixelId') || ''
+    () => localStorage.getItem('pixelId') || import.meta.env.VITE_PIXEL_ID || ''
   )
   const [initialized, setInitialized] = useState(false)
   const [log, setLog] = useState([...eventLog])
