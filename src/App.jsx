@@ -14,10 +14,10 @@ export default function App() {
     <BrowserRouter>
       <PixelProvider>
         <CartProvider>
-          <div className="app-layout">
+          <div className="flex flex-col min-h-screen">
             <Header />
-            <div className="app-body">
-              <div className="main-area">
+            <div className="flex flex-1 items-start">
+              <div className="flex-1 min-w-0">
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/product/:id" element={<ProductDetail />} />
