@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { initPixel, subscribeEventLog, eventLog, trackPageView } from '../utils/pixel'
+import { initPixel, subscribeEventLog, eventLog } from '../utils/pixel'
 
 const PixelContext = createContext(null)
 
@@ -22,7 +22,6 @@ export function PixelProvider({ children }) {
     if (trimmed) {
       window._pixelInitialized = false
       initPixel(trimmed)
-      trackPageView()
       setInitialized(true)
     } else {
       setInitialized(false)
@@ -32,7 +31,6 @@ export function PixelProvider({ children }) {
   useEffect(() => {
     if (pixelId) {
       initPixel(pixelId)
-      trackPageView()
       setInitialized(true)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
