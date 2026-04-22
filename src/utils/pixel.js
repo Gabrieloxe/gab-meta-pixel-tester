@@ -52,11 +52,10 @@ export function initPixel(pixelId) {
   /* eslint-enable */
 
   window.fbq('init', pixelId)
+  window.fbq('track', 'PageView')
 }
 
 // ─── Standard Events ──────────────────────────────────────────────────────────
-
-
 
 export function trackViewContent({ content_ids, content_name, content_type, value, currency }) {
   const params = { content_ids, content_name, content_type: content_type || 'product', value, currency: currency || 'USD' }
