@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useCart } from '../context/CartContext'
-import { trackSearch } from '../utils/pixel'
+import { generateEventId, trackSearch } from '../utils/pixel'
 
 export default function Header() {
   const { count } = useCart()
@@ -24,7 +24,8 @@ export default function Header() {
       }
       return
     }
-    trackSearch({ search_string: term })
+    const eventID = generateEventId()
+    trackSearch({ search_string: term, eventID})
     if (location.pathname === '/') {
       setSearchParams((prev) => { prev.set('search', term); return prev })
     } else {

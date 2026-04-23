@@ -1,19 +1,21 @@
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { trackPageView, trackInitiateCheckout } from '../utils/pixel'
+import { generateEventId, trackPageView, trackInitiateCheckout } from '../utils/pixel'
 
 export default function CartPage() {
   const { items, total, dispatch } = useCart()
   const navigate = useNavigate()
 
-  useEffect(() => { trackPageView() }, [])
+  useEffect(() => { trackPageView({ eventID: generateEventId() }) }, [])
 
   function handleCheckout() {
+    const eventID = generateEventId()
     trackInitiateCheckout({
       content_ids: items.map((i) => i.id),
       num_items: items.reduce((s, i) => s + i.qty, 0),
       value: total,
+      eventID,
     })
     navigate('/checkout')
   }

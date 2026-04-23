@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
-import { trackPageView, trackAddPaymentInfo, trackPurchase, trackPurchasePortableEspressoMaker } from '../utils/pixel'
+import { generateEventId, trackPageView, trackAddPaymentInfo, trackPurchase, trackPurchasePortableEspressoMaker } from '../utils/pixel'
 
 export default function CheckoutPage() {
   const { items, total, dispatch } = useCart()
@@ -9,7 +9,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState(0) // 0 = shipping, 1 = payment
   const [form, setForm] = useState({ name: '', email: '', address: '', card: '' })
 
-  useEffect(() => { trackPageView() }, [])
+  useEffect(() => { trackPageView({ eventID: generateEventId() }) }, [])
 
   if (items.length === 0) { navigate('/'); return null }
 
@@ -26,9 +26,9 @@ export default function CheckoutPage() {
     e.preventDefault()
     const contentIds = items.map((i) => i.id)
     const numItems = items.reduce((s, i) => s + i.qty, 0)
-    trackAddPaymentInfo({ content_ids: contentIds, value: total })
-    trackPurchase({ content_ids: contentIds, num_items: numItems, value: total })
-    trackPurchasePortableEspressoMaker({ content_ids: contentIds, num_items: numItems, value: total })
+    trackAddPaymentInfo({ content_ids: contentIds, value: total, eventID: generateEventId() })
+    trackPurchase({ content_ids: contentIds, num_items: numItems, value: total, eventID: generateEventId() })
+    trackPurchasePortableEspressoMaker({ content_ids: contentIds, num_items: numItems, value: total, eventID: generateEventId() })
     dispatch({ type: 'CLEAR' })
     navigate('/order-success')
   }

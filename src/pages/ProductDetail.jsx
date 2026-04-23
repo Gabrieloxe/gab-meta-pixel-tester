@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { products } from '../data/products'
 import { useCart } from '../context/CartContext'
-import { trackViewContent, trackAddToCart, trackAddToWishlist, trackPortableEspressoMakerViewProduct } from '../utils/pixel'
+import { generateEventId, trackViewContent, trackAddToCart, trackAddToWishlist, trackPortableEspressoMakerViewProduct } from '../utils/pixel'
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -12,9 +12,9 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!product) return
-    trackViewContent({ content_ids: [product.id], content_name: product.name, content_type: 'product', value: product.price })
+    trackViewContent({ content_ids: [product.id], content_name: product.name, content_type: 'product', value: product.price, eventID: generateEventId() })
     if (product.id === 'prod-003') {
-      trackPortableEspressoMakerViewProduct(product)
+      trackPortableEspressoMakerViewProduct(product, generateEventId())
     }
   }, [product])
 
@@ -37,16 +37,16 @@ export default function ProductDetail() {
 
   function handleAddToCart() {
     dispatch({ type: 'ADD', product })
-    trackAddToCart({ content_ids: [product.id], content_name: product.name, value: product.price, quantity: 1 })
+    trackAddToCart({ content_ids: [product.id], content_name: product.name, value: product.price, quantity: 1, eventID: generateEventId() })
   }
 
   function handleWishlist() {
-    trackAddToWishlist({ content_ids: [product.id], content_name: product.name, value: product.price })
+    trackAddToWishlist({ content_ids: [product.id], content_name: product.name, value: product.price, eventID: generateEventId() })
   }
 
   function handleBuyNow() {
     dispatch({ type: 'ADD', product })
-    trackAddToCart({ content_ids: [product.id], content_name: product.name, value: product.price, quantity: 1 })
+    trackAddToCart({ content_ids: [product.id], content_name: product.name, value: product.price, quantity: 1, eventID: generateEventId() })
     navigate('/cart')
   }
 
