@@ -30,11 +30,7 @@ export function PixelProvider({ children }) {
     }
   }
 
-  return (
-    <PixelContext.Provider value={{ pixelId, applyPixelId, initialized, log }}>
-      {children}
-    </PixelContext.Provider>
-  )
+  return <PixelContext.Provider value={{ pixelId, applyPixelId, initialized, log }}>{children}</PixelContext.Provider>
 }
 
 export function usePixel() {

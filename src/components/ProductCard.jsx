@@ -6,9 +6,8 @@ import { trackAddToCart, trackAddToWishlist } from '../utils/pixel'
 export default function ProductCard({ product }) {
   const { dispatch } = useCart()
   const [wished, setWished] = useState(false)
-  const discount = product.originalPrice > product.price
-    ? Math.round((1 - product.price / product.originalPrice) * 100)
-    : 0
+  const discount =
+    product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0
 
   function handleAddToCart(e) {
     e.preventDefault()
@@ -25,12 +24,17 @@ export default function ProductCard({ product }) {
   const stars = Math.round(product.rating)
 
   return (
-    <Link to={`/product/${product.id}`} className="card bg-base-200 border border-base-300 hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 overflow-hidden">
+    <Link
+      to={`/product/${product.id}`}
+      className="card bg-base-200 border border-base-300 hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 overflow-hidden"
+    >
       <figure className="relative h-48 overflow-hidden">
-        <img src={product.image} alt={product.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-        {discount > 0 && (
-          <span className="badge badge-error absolute top-2 left-2 font-bold">-{discount}%</span>
-        )}
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+        />
+        {discount > 0 && <span className="badge badge-error absolute top-2 left-2 font-bold">-{discount}%</span>}
         <button
           className={`btn btn-circle btn-sm absolute top-2 right-2 backdrop-blur-sm ${wished ? 'btn-error' : 'btn-ghost bg-base-100/30'}`}
           title="Add to Wishlist"

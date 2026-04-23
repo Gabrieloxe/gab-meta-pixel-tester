@@ -11,13 +11,19 @@ export default function Home() {
   const search = params.get('search') || ''
   const category = params.get('category') || 'All'
 
-  useEffect(() => { trackPageView({ eventID: generateEventId() }) }, [])
+  useEffect(() => {
+    trackPageView({ eventID: generateEventId() })
+  }, [])
 
-  const filtered = useMemo(() => products.filter((p) => {
-    const matchCat = category === 'All' || p.category === category
-    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase())
-    return matchCat && matchSearch
-  }), [search, category])
+  const filtered = useMemo(
+    () =>
+      products.filter((p) => {
+        const matchCat = category === 'All' || p.category === category
+        const matchSearch = p.name.toLowerCase().includes(search.toLowerCase())
+        return matchCat && matchSearch
+      }),
+    [search, category],
+  )
 
   function setCategory(cat) {
     setParams(cat === 'All' ? {} : { category: cat })
@@ -53,7 +59,9 @@ export default function Home() {
         {search && (
           <div className="badge badge-outline gap-2 py-3 px-3">
             "{search}"
-            <button className="btn btn-ghost btn-xs btn-circle" onClick={() => setParams({})}>✕</button>
+            <button className="btn btn-ghost btn-xs btn-circle" onClick={() => setParams({})}>
+              ✕
+            </button>
           </div>
         )}
       </div>
@@ -63,7 +71,9 @@ export default function Home() {
         <div className="text-center text-base-content/40 py-20">No products found.</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((p) => <ProductCard key={p.id} product={p} />)}
+          {filtered.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
         </div>
       )}
     </main>

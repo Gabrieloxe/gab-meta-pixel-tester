@@ -26,8 +26,9 @@ export default function PixelEventLog() {
   }
 
   return (
-    <aside className={`shrink-0 bg-base-200 border-l border-base-300 sticky top-16 h-[calc(100vh-4rem)] flex flex-col transition-all duration-200 ${open ? 'w-80' : 'w-12'}`}>
-
+    <aside
+      className={`shrink-0 bg-base-200 border-l border-base-300 sticky top-16 h-[calc(100vh-4rem)] flex flex-col transition-all duration-200 ${open ? 'w-80' : 'w-12'}`}
+    >
       {/* Header toggle */}
       <div
         className="flex items-center justify-between px-3 py-3 bg-base-300 border-b border-base-300 cursor-pointer select-none shrink-0"
@@ -35,13 +36,13 @@ export default function PixelEventLog() {
       >
         {open && (
           <div className="flex items-center gap-2 min-w-0">
-            <span className={`w-2 h-2 rounded-full shrink-0 ${initialized ? 'bg-success shadow-[0_0_6px] shadow-success' : 'bg-base-content/30'}`} />
+            <span
+              className={`w-2 h-2 rounded-full shrink-0 ${initialized ? 'bg-success shadow-[0_0_6px] shadow-success' : 'bg-base-content/30'}`}
+            />
             <span className="text-xs font-semibold truncate">Meta Pixel Event Log</span>
           </div>
         )}
-        <button className="btn btn-ghost btn-xs btn-square ml-auto">
-          {open ? '✕' : '☰'}
-        </button>
+        <button className="btn btn-ghost btn-xs btn-square ml-auto">{open ? '✕' : '☰'}</button>
       </div>
 
       {open && (
@@ -61,9 +62,7 @@ export default function PixelEventLog() {
               </button>
             </form>
             <div className={`mt-2 text-xs ${initialized ? 'text-success' : 'text-warning'}`}>
-              {initialized
-                ? `● Pixel ${pixelId} active`
-                : '● No Pixel ID — events logged locally only'}
+              {initialized ? `● Pixel ${pixelId} active` : '● No Pixel ID — events logged locally only'}
             </div>
           </div>
 
@@ -71,7 +70,9 @@ export default function PixelEventLog() {
           <ul className="flex flex-col gap-2 p-3 overflow-y-auto flex-1">
             {log.length === 0 && (
               <li className="text-center text-base-content/40 text-sm py-8">
-                No events yet.<br />Interact with the shop!
+                No events yet.
+                <br />
+                Interact with the shop!
               </li>
             )}
             {log.map((entry) => (

@@ -20,14 +20,20 @@ export default function Header() {
     const term = query.trim()
     if (!term) {
       if (location.pathname === '/') {
-        setSearchParams((prev) => { prev.delete('search'); return prev })
+        setSearchParams((prev) => {
+          prev.delete('search')
+          return prev
+        })
       }
       return
     }
     const eventID = generateEventId()
-    trackSearch({ search_string: term, eventID})
+    trackSearch({ search_string: term, eventID })
     if (location.pathname === '/') {
-      setSearchParams((prev) => { prev.set('search', term); return prev })
+      setSearchParams((prev) => {
+        prev.set('search', term)
+        return prev
+      })
     } else {
       navigate(`/?search=${encodeURIComponent(term)}`)
     }
@@ -58,14 +64,25 @@ export default function Header() {
       </div>
 
       <div className="navbar-end shrink-0 gap-2">
-        <Link to="/" className="btn btn-ghost btn-sm">Shop</Link>
+        <Link to="/" className="btn btn-ghost btn-sm">
+          Shop
+        </Link>
         <Link to="/cart" className="btn btn-ghost btn-sm indicator">
-          <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.4 7h11.8M9 20a1 1 0 100 2 1 1 0 000-2zm8 0a1 1 0 100 2 1 1 0 000-2z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="size-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.4 7h11.8M9 20a1 1 0 100 2 1 1 0 000-2zm8 0a1 1 0 100 2 1 1 0 000-2z"
+            />
           </svg>
-          {count > 0 && (
-            <span className="indicator-item badge badge-error badge-sm">{count}</span>
-          )}
+          {count > 0 && <span className="indicator-item badge badge-error badge-sm">{count}</span>}
         </Link>
       </div>
     </header>

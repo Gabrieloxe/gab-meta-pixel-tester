@@ -69,7 +69,13 @@ export function trackPageView({ eventID } = {}) {
 }
 
 export function trackViewContent({ content_ids, content_name, content_type, value, currency, eventID }) {
-  const params = { content_ids, content_name, content_type: content_type || 'product', value, currency: currency || 'USD' }
+  const params = {
+    content_ids,
+    content_name,
+    content_type: content_type || 'product',
+    value,
+    currency: currency || 'USD',
+  }
   fbq('track', 'ViewContent', params, { eventID })
   log('ViewContent', { ...params, eventID })
 }

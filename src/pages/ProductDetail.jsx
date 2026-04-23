@@ -2,7 +2,13 @@ import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { products } from '../data/products'
 import { useCart } from '../context/CartContext'
-import { generateEventId, trackViewContent, trackAddToCart, trackAddToWishlist, trackPortableEspressoMakerViewProduct } from '../utils/pixel'
+import {
+  generateEventId,
+  trackViewContent,
+  trackAddToCart,
+  trackAddToWishlist,
+  trackPortableEspressoMakerViewProduct,
+} from '../utils/pixel'
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -12,7 +18,13 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (!product) return
-    trackViewContent({ content_ids: [product.id], content_name: product.name, content_type: 'product', value: product.price, eventID: generateEventId() })
+    trackViewContent({
+      content_ids: [product.id],
+      content_name: product.name,
+      content_type: 'product',
+      value: product.price,
+      eventID: generateEventId(),
+    })
     if (product.id === 'prod-003') {
       trackPortableEspressoMakerViewProduct(product, generateEventId())
     }
@@ -23,30 +35,48 @@ export default function ProductDetail() {
       <main className="p-6">
         <div className="alert alert-warning max-w-sm">
           Product not found.
-          <button className="btn btn-sm btn-ghost" onClick={() => navigate('/')}>Go back</button>
+          <button className="btn btn-sm btn-ghost" onClick={() => navigate('/')}>
+            Go back
+          </button>
         </div>
       </main>
     )
   }
 
   const inCart = items.some((i) => i.id === product.id)
-  const discount = product.originalPrice > product.price
-    ? Math.round((1 - product.price / product.originalPrice) * 100)
-    : 0
+  const discount =
+    product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0
   const stars = Math.round(product.rating)
 
   function handleAddToCart() {
     dispatch({ type: 'ADD', product })
-    trackAddToCart({ content_ids: [product.id], content_name: product.name, value: product.price, quantity: 1, eventID: generateEventId() })
+    trackAddToCart({
+      content_ids: [product.id],
+      content_name: product.name,
+      value: product.price,
+      quantity: 1,
+      eventID: generateEventId(),
+    })
   }
 
   function handleWishlist() {
-    trackAddToWishlist({ content_ids: [product.id], content_name: product.name, value: product.price, eventID: generateEventId() })
+    trackAddToWishlist({
+      content_ids: [product.id],
+      content_name: product.name,
+      value: product.price,
+      eventID: generateEventId(),
+    })
   }
 
   function handleBuyNow() {
     dispatch({ type: 'ADD', product })
-    trackAddToCart({ content_ids: [product.id], content_name: product.name, value: product.price, quantity: 1, eventID: generateEventId() })
+    trackAddToCart({
+      content_ids: [product.id],
+      content_name: product.name,
+      value: product.price,
+      quantity: 1,
+      eventID: generateEventId(),
+    })
     navigate('/cart')
   }
 
@@ -88,11 +118,7 @@ export default function ProductDetail() {
 
           <p className="text-base-content/70 leading-relaxed">{product.description}</p>
 
-          {product.stock <= 10 && (
-            <div className="badge badge-warning gap-1">
-              Only {product.stock} left in stock
-            </div>
-          )}
+          {product.stock <= 10 && <div className="badge badge-warning gap-1">Only {product.stock} left in stock</div>}
 
           <div className="flex flex-wrap gap-3">
             <button className="btn btn-primary flex-1" onClick={handleAddToCart}>
@@ -109,16 +135,21 @@ export default function ProductDetail() {
           {/* Pixel event reference */}
           <div className="card bg-base-200 border border-base-300">
             <div className="card-body p-4 gap-2">
-              <h4 className="text-xs font-bold uppercase tracking-widest text-base-content/40">Events fired on this page</h4>
+              <h4 className="text-xs font-bold uppercase tracking-widest text-base-content/40">
+                Events fired on this page
+              </h4>
               <ul className="flex flex-col gap-1">
                 {[
                   ['ViewContent', 'on page load'],
-                  ...(product.id === 'prod-003' ? [['PortableEspressoMaker_ViewProduct', 'on page load (custom)']] : []),
+                  ...(product.id === 'prod-003'
+                    ? [['PortableEspressoMaker_ViewProduct', 'on page load (custom)']]
+                    : []),
                   ['AddToCart', 'on Add to Cart / Buy Now'],
                   ['AddToWishlist', 'on Wishlist button'],
                 ].map(([ev, when]) => (
                   <li key={ev} className="text-sm text-base-content/60">
-                    <span className="badge badge-outline badge-xs mr-2">{ev}</span>{when}
+                    <span className="badge badge-outline badge-xs mr-2">{ev}</span>
+                    {when}
                   </li>
                 ))}
               </ul>

@@ -7,7 +7,9 @@ export default function CartPage() {
   const { items, total, dispatch } = useCart()
   const navigate = useNavigate()
 
-  useEffect(() => { trackPageView({ eventID: generateEventId() }) }, [])
+  useEffect(() => {
+    trackPageView({ eventID: generateEventId() })
+  }, [])
 
   function handleCheckout() {
     const eventID = generateEventId()
@@ -25,7 +27,9 @@ export default function CartPage() {
       <main className="p-6 flex flex-col items-center gap-6 pt-24">
         <div className="text-6xl">🛒</div>
         <h1 className="text-2xl font-bold">Your cart is empty</h1>
-        <Link to="/" className="btn btn-primary">Continue Shopping</Link>
+        <Link to="/" className="btn btn-primary">
+          Continue Shopping
+        </Link>
       </main>
     )
   }
@@ -45,7 +49,10 @@ export default function CartPage() {
               <div className="card-body p-4 gap-2">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <Link to={`/product/${item.id}`} className="font-semibold hover:text-primary transition-colors text-sm">
+                    <Link
+                      to={`/product/${item.id}`}
+                      className="font-semibold hover:text-primary transition-colors text-sm"
+                    >
                       {item.name}
                     </Link>
                     <div className="badge badge-outline badge-xs mt-1">{item.category}</div>
@@ -62,15 +69,23 @@ export default function CartPage() {
                   <div className="join">
                     <button
                       className="btn btn-xs btn-outline join-item"
-                      onClick={() => item.qty > 1
-                        ? dispatch({ type: 'UPDATE_QTY', id: item.id, qty: item.qty - 1 })
-                        : dispatch({ type: 'REMOVE', id: item.id })}
-                    >−</button>
-                    <span className="btn btn-xs btn-outline join-item no-animation pointer-events-none">{item.qty}</span>
+                      onClick={() =>
+                        item.qty > 1
+                          ? dispatch({ type: 'UPDATE_QTY', id: item.id, qty: item.qty - 1 })
+                          : dispatch({ type: 'REMOVE', id: item.id })
+                      }
+                    >
+                      −
+                    </button>
+                    <span className="btn btn-xs btn-outline join-item no-animation pointer-events-none">
+                      {item.qty}
+                    </span>
                     <button
                       className="btn btn-xs btn-outline join-item"
                       onClick={() => dispatch({ type: 'UPDATE_QTY', id: item.id, qty: item.qty + 1 })}
-                    >+</button>
+                    >
+                      +
+                    </button>
                   </div>
                   <span className="font-bold">${(item.price * item.qty).toFixed(2)}</span>
                 </div>
@@ -84,14 +99,17 @@ export default function CartPage() {
           <div className="card-body gap-4">
             <h2 className="card-title text-base">Order Summary</h2>
             <div className="flex justify-between text-sm text-base-content/60">
-              <span>Subtotal</span><span>${total.toFixed(2)}</span>
+              <span>Subtotal</span>
+              <span>${total.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm text-base-content/60">
-              <span>Shipping</span><span className="text-success">Free</span>
+              <span>Shipping</span>
+              <span className="text-success">Free</span>
             </div>
             <div className="divider my-0" />
             <div className="flex justify-between font-bold">
-              <span>Total</span><span>${total.toFixed(2)}</span>
+              <span>Total</span>
+              <span>${total.toFixed(2)}</span>
             </div>
             <button className="btn btn-primary w-full" onClick={handleCheckout}>
               Proceed to Checkout
