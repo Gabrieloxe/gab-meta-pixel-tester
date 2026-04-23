@@ -24,7 +24,7 @@ export default function OrderSuccess() {
             <p className="text-xs text-base-content/40 uppercase tracking-widest font-semibold">Fire more events</p>
             <button
               className="btn btn-outline btn-sm w-full"
-              onClick={() => trackCompleteRegistration({ eventID: generateEventId() })}
+              onClick={() => trackCompleteRegistration({ event_id: generateEventId() })}
             >
               Fire <code className="mx-1">CompleteRegistration</code>
             </button>

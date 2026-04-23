@@ -27,8 +27,8 @@ export default function Header() {
       }
       return
     }
-    const eventID = generateEventId()
-    trackSearch({ search_string: term, eventID })
+    const event_id = generateEventId()
+    trackSearch({ search_string: term, event_id })
     if (location.pathname === '/') {
       setSearchParams((prev) => {
         prev.set('search', term)

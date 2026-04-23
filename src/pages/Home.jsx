@@ -12,7 +12,7 @@ export default function Home() {
   const category = params.get('category') || 'All'
 
   useEffect(() => {
-    trackPageView({ eventID: generateEventId() })
+    trackPageView({ event_id: generateEventId() })
   }, [])
 
   const filtered = useMemo(

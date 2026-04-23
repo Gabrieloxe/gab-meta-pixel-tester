@@ -16,7 +16,7 @@ export default function CheckoutPage() {
   const [form, setForm] = useState({ name: '', email: '', address: '', card: '' })
 
   useEffect(() => {
-    trackPageView({ eventID: generateEventId() })
+    trackPageView({ event_id: generateEventId() })
   }, [])
 
   if (items.length === 0) {
@@ -37,13 +37,13 @@ export default function CheckoutPage() {
     e.preventDefault()
     const contentIds = items.map((i) => i.id)
     const numItems = items.reduce((s, i) => s + i.qty, 0)
-    trackAddPaymentInfo({ content_ids: contentIds, value: total, eventID: generateEventId() })
-    trackPurchase({ content_ids: contentIds, num_items: numItems, value: total, eventID: generateEventId() })
+    trackAddPaymentInfo({ content_ids: contentIds, value: total, event_id: generateEventId() })
+    trackPurchase({ content_ids: contentIds, num_items: numItems, value: total, event_id: generateEventId() })
     trackPurchasePortableEspressoMaker({
       content_ids: contentIds,
       num_items: numItems,
       value: total,
-      eventID: generateEventId(),
+      event_id: generateEventId(),
     })
     dispatch({ type: 'CLEAR' })
     navigate('/order-success')

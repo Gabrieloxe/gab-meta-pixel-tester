@@ -8,16 +8,16 @@ export default function CartPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    trackPageView({ eventID: generateEventId() })
+    trackPageView({ event_id: generateEventId() })
   }, [])
 
   function handleCheckout() {
-    const eventID = generateEventId()
+    const event_id = generateEventId()
     trackInitiateCheckout({
       content_ids: items.map((i) => i.id),
       num_items: items.reduce((s, i) => s + i.qty, 0),
       value: total,
-      eventID,
+      event_id,
     })
     navigate('/checkout')
   }

@@ -63,12 +63,13 @@ export function initPixel(pixelId) {
 
 // ─── Standard Events ──────────────────────────────────────────────────────────
 
-export function trackPageView({ eventID } = {}) {
-  fbq('track', 'PageView', {}, { eventID })
-  log('PageView', { eventID })
+export function trackPageView({ event_id } = {}) {
+  fbq('track', 'PageView', {}, { eventID: event_id })
+  log('PageView', { event_id })
+  return { event_name: 'PageView', event_id }
 }
 
-export function trackViewContent({ content_ids, content_name, content_type, value, currency, eventID }) {
+export function trackViewContent({ content_ids, content_name, content_type, value, currency, event_id }) {
   const params = {
     content_ids,
     content_name,
@@ -76,59 +77,68 @@ export function trackViewContent({ content_ids, content_name, content_type, valu
     value,
     currency: currency || 'USD',
   }
-  fbq('track', 'ViewContent', params, { eventID })
-  log('ViewContent', { ...params, eventID })
+  fbq('track', 'ViewContent', params, { eventID: event_id })
+  log('ViewContent', { ...params, event_id })
+  return { event_name: 'ViewContent', event_id, params }
 }
 
-export function trackAddToCart({ content_ids, content_name, value, currency, quantity, eventID }) {
+export function trackAddToCart({ content_ids, content_name, value, currency, quantity, event_id }) {
   const params = { content_ids, content_name, value, currency: currency || 'USD', quantity: quantity || 1 }
-  fbq('track', 'AddToCart', params, { eventID })
-  log('AddToCart', { ...params, eventID })
+  fbq('track', 'AddToCart', params, { eventID: event_id })
+  log('AddToCart', { ...params, event_id })
+  return { event_name: 'AddToCart', event_id, params }
 }
 
-export function trackAddToWishlist({ content_ids, content_name, value, currency, eventID }) {
+export function trackAddToWishlist({ content_ids, content_name, value, currency, event_id }) {
   const params = { content_ids, content_name, value, currency: currency || 'USD' }
-  fbq('track', 'AddToWishlist', params, { eventID })
-  log('AddToWishlist', { ...params, eventID })
+  fbq('track', 'AddToWishlist', params, { eventID: event_id })
+  log('AddToWishlist', { ...params, event_id })
+  return { event_name: 'AddToWishlist', event_id, params }
 }
 
-export function trackInitiateCheckout({ content_ids, num_items, value, currency, eventID }) {
+export function trackInitiateCheckout({ content_ids, num_items, value, currency, event_id }) {
   const params = { content_ids, num_items, value, currency: currency || 'USD' }
-  fbq('track', 'InitiateCheckout', params, { eventID })
-  log('InitiateCheckout', { ...params, eventID })
+  fbq('track', 'InitiateCheckout', params, { eventID: event_id })
+  log('InitiateCheckout', { ...params, event_id })
+  return { event_name: 'InitiateCheckout', event_id, params }
 }
 
-export function trackAddPaymentInfo({ content_ids, value, currency, eventID }) {
+export function trackAddPaymentInfo({ content_ids, value, currency, event_id }) {
   const params = { content_ids, value, currency: currency || 'USD' }
-  fbq('track', 'AddPaymentInfo', params, { eventID })
-  log('AddPaymentInfo', { ...params, eventID })
+  fbq('track', 'AddPaymentInfo', params, { eventID: event_id })
+  log('AddPaymentInfo', { ...params, event_id })
+  return { event_name: 'AddPaymentInfo', event_id, params }
 }
 
-export function trackPurchase({ content_ids, num_items, value, currency, eventID }) {
+export function trackPurchase({ content_ids, num_items, value, currency, event_id }) {
   const params = { content_ids, num_items, value: Number(value.toFixed(2)), currency: currency || 'USD' }
-  fbq('track', 'Purchase', params, { eventID })
-  log('Purchase', { ...params, eventID })
+  fbq('track', 'Purchase', params, { eventID: event_id })
+  log('Purchase', { ...params, event_id })
+  return { event_name: 'Purchase', event_id, params }
 }
 
-export function trackSearch({ search_string, eventID }) {
+export function trackSearch({ search_string, event_id }) {
   const params = { search_string }
-  fbq('track', 'Search', params, { eventID })
-  log('Search', { ...params, eventID })
+  fbq('track', 'Search', params, { eventID: event_id })
+  log('Search', { ...params, event_id })
+  return { event_name: 'Search', event_id, params }
 }
 
-export function trackLead({ eventID } = {}) {
-  fbq('track', 'Lead', {}, { eventID })
-  log('Lead', { eventID })
+export function trackLead({ event_id } = {}) {
+  fbq('track', 'Lead', {}, { eventID: event_id })
+  log('Lead', { event_id })
+  return { event_name: 'Lead', event_id }
 }
 
-export function trackCompleteRegistration({ eventID } = {}) {
-  fbq('track', 'CompleteRegistration', {}, { eventID })
-  log('CompleteRegistration', { eventID })
+export function trackCompleteRegistration({ event_id } = {}) {
+  fbq('track', 'CompleteRegistration', {}, { eventID: event_id })
+  log('CompleteRegistration', { event_id })
+  return { event_name: 'CompleteRegistration', event_id }
 }
 
 // ─── Custom Events ───────────────────────────────────────────────────────────
 
-export function trackPortableEspressoMakerViewProduct(product, eventID) {
+export function trackPortableEspressoMakerViewProduct(product, event_id) {
   const params = {
     event_name: 'PortableEspressoMaker_ViewProduct',
     content_type: 'product',
@@ -138,14 +148,15 @@ export function trackPortableEspressoMakerViewProduct(product, eventID) {
     value: product.price,
     currency: 'SGD',
   }
-  fbq('trackCustom', 'PortableEspressoMaker_ViewProduct', params, { eventID })
-  log('PortableEspressoMaker_ViewProduct', { ...params, eventID })
+  fbq('trackCustom', 'PortableEspressoMaker_ViewProduct', params, { eventID: event_id })
+  log('PortableEspressoMaker_ViewProduct', { ...params, event_id })
+  return { event_name: 'PortableEspressoMaker_ViewProduct', event_id, params }
 }
 
 // ─── Custom Conversions ──────────────────────────────────────────────────────
 // Purchase_PortableEspressoMaker: fires when a Purchase contains prod-003
 
-export function trackPurchasePortableEspressoMaker({ content_ids, num_items, value, currency, eventID }) {
+export function trackPurchasePortableEspressoMaker({ content_ids, num_items, value, currency, event_id }) {
   if (!content_ids || !content_ids.includes('prod-003')) return
   const params = {
     content_ids: ['prod-003'],
@@ -154,6 +165,7 @@ export function trackPurchasePortableEspressoMaker({ content_ids, num_items, val
     currency: currency || 'SGD',
     custom_conversion: 'Purchase_PortableEspressoMaker',
   }
-  fbq('trackCustom', 'Purchase_PortableEspressoMaker', params, { eventID })
-  log('Purchase_PortableEspressoMaker', { ...params, eventID })
+  fbq('trackCustom', 'Purchase_PortableEspressoMaker', params, { eventID: event_id })
+  log('Purchase_PortableEspressoMaker', { ...params, event_id })
+  return { event_name: 'Purchase_PortableEspressoMaker', event_id, params }
 }

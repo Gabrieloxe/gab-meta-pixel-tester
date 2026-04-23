@@ -23,7 +23,7 @@ export default function ProductDetail() {
       content_name: product.name,
       content_type: 'product',
       value: product.price,
-      eventID: generateEventId(),
+      event_id: generateEventId(),
     })
     if (product.id === 'prod-003') {
       trackPortableEspressoMakerViewProduct(product, generateEventId())
@@ -55,7 +55,7 @@ export default function ProductDetail() {
       content_name: product.name,
       value: product.price,
       quantity: 1,
-      eventID: generateEventId(),
+      event_id: generateEventId(),
     })
   }
 
@@ -64,7 +64,7 @@ export default function ProductDetail() {
       content_ids: [product.id],
       content_name: product.name,
       value: product.price,
-      eventID: generateEventId(),
+      event_id: generateEventId(),
     })
   }
 
@@ -75,7 +75,7 @@ export default function ProductDetail() {
       content_name: product.name,
       value: product.price,
       quantity: 1,
-      eventID: generateEventId(),
+      event_id: generateEventId(),
     })
     navigate('/cart')
   }
