@@ -25,7 +25,7 @@ A lightweight Vite + React e-commerce demo built specifically for testing Meta P
 ### Prerequisites
 
 - Node.js 18+
-- npm 9+
+- pnpm 10+ (enabled via `corepack enable pnpm`)
 
 ### 1. Clone the repo
 
@@ -37,7 +37,7 @@ cd gab-meta-pixel-tester
 ### 2. Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 3. Set your Pixel ID (optional for local testing)
@@ -59,7 +59,7 @@ VITE_PIXEL_ID=1234567890
 ### 4. Start the dev server
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
@@ -82,7 +82,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 ### Option B — Vercel CLI
 
 ```bash
-npm i -g vercel
+pnpm add -g vercel
 vercel login
 vercel --prod
 ```
