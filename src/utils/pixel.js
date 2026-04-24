@@ -57,7 +57,6 @@ export function initPixel(pixelId) {
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
   /* eslint-enable */
 
-  window.fbq.disablePushState = true
   window.fbq('init', pixelId)
 }
 
