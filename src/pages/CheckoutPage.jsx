@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { sumBy } from 'es-toolkit'
 import { useCart } from '../context/CartContext'
 import {
   generateEventId,
@@ -36,14 +37,30 @@ export default function CheckoutPage() {
   function handlePaymentSubmit(e) {
     e.preventDefault()
     const contentIds = items.map((i) => i.id)
-    const numItems = items.reduce((s, i) => s + i.qty, 0)
-    trackAddPaymentInfo({ content_ids: contentIds, value: total, event_id: generateEventId() })
-    trackPurchase({ content_ids: contentIds, num_items: numItems, value: total, event_id: generateEventId() })
+    const numItems = sumBy(items, (i) => i.qty)
+
+    // Parse user data for CAPI matching
+    const nameParts = form.name.trim().split(/\s+/)
+    const user_data = {
+      email: form.email,
+      first_name: nameParts[0] || '',
+      last_name: nameParts.slice(1).join(' ') || '',
+    }
+
+    trackAddPaymentInfo({ content_ids: contentIds, value: total, event_id: generateEventId(), user_data })
+    trackPurchase({
+      content_ids: contentIds,
+      num_items: numItems,
+      value: total,
+      event_id: generateEventId(),
+      user_data,
+    })
     trackPurchasePortableEspressoMaker({
       content_ids: contentIds,
       num_items: numItems,
       value: total,
       event_id: generateEventId(),
+      user_data,
     })
     dispatch({ type: 'CLEAR' })
     navigate('/order-success')
