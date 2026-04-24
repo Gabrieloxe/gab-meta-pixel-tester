@@ -11,6 +11,7 @@ export function PixelProvider({ children }) {
   })
   const [initialized, setInitialized] = useState(() => !!pixelId)
   const [log, setLog] = useState([...eventLog])
+  const [capiConfigured] = useState(() => !!import.meta.env.VITE_CAPI_TEST_EVENT_CODE)
 
   useEffect(() => {
     const unsub = subscribeEventLog(setLog)
@@ -30,7 +31,11 @@ export function PixelProvider({ children }) {
     }
   }
 
-  return <PixelContext.Provider value={{ pixelId, applyPixelId, initialized, log }}>{children}</PixelContext.Provider>
+  return (
+    <PixelContext.Provider value={{ pixelId, applyPixelId, initialized, log, capiConfigured }}>
+      {children}
+    </PixelContext.Provider>
+  )
 }
 
 export function usePixel() {
