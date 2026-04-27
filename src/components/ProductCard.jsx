@@ -12,13 +12,24 @@ export default function ProductCard({ product }) {
   function handleAddToCart(e) {
     e.preventDefault()
     dispatch({ type: 'ADD', product })
-    trackAddToCart({ content_ids: [product.id], content_name: product.name, value: product.price, quantity: 1, event_id: generateEventId() })
+    trackAddToCart({
+      content_ids: [product.id],
+      content_name: product.name,
+      value: product.price,
+      quantity: 1,
+      event_id: generateEventId(),
+    })
   }
 
   function handleWishlist(e) {
     e.preventDefault()
     setWished((w) => !w)
-    trackAddToWishlist({ content_ids: [product.id], content_name: product.name, value: product.price, event_id: generateEventId() })
+    trackAddToWishlist({
+      content_ids: [product.id],
+      content_name: product.name,
+      value: product.price,
+      event_id: generateEventId(),
+    })
   }
 
   const stars = Math.round(product.rating)

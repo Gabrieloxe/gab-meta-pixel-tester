@@ -121,7 +121,14 @@ export const trackPortableEspressoMakerViewProduct = (product, event_id) => {
 // ─── Custom Conversions ──────────────────────────────────────────────────────
 // Purchase_PortableEspressoMaker: fires when a Purchase contains prod-003
 
-export const trackPurchasePortableEspressoMaker = ({ content_ids, num_items, value, currency, event_id, user_data }) => {
+export const trackPurchasePortableEspressoMaker = ({
+  content_ids,
+  num_items,
+  value,
+  currency,
+  event_id,
+  user_data,
+}) => {
   if (!content_ids || !content_ids.includes('prod-003')) return
   const params = {
     content_ids: ['prod-003'],

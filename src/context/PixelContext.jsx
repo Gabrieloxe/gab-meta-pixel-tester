@@ -24,11 +24,7 @@ export const PixelProvider = ({ children }) => {
     }
   }
 
-  return (
-    <PixelContext.Provider value={{ pixelId, applyPixelId, initialized }}>
-      {children}
-    </PixelContext.Provider>
-  )
+  return <PixelContext.Provider value={{ pixelId, applyPixelId, initialized }}>{children}</PixelContext.Provider>
 }
 
 export const usePixel = () => useContext(PixelContext)
