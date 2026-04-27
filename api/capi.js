@@ -35,10 +35,10 @@ export default async (req, res) => {
   }
 
   const accessToken = process.env.CAPI_ACCESS_TOKEN
-  const pixelId = process.env.CAPI_PIXEL_ID
+  const pixelId = process.env.VITE_META_PIXEL_ID
 
   if (!accessToken || !pixelId) {
-    return res.status(500).json({ error: 'CAPI not configured — missing CAPI_ACCESS_TOKEN or CAPI_PIXEL_ID' })
+    return res.status(500).json({ error: 'CAPI not configured — missing CAPI_ACCESS_TOKEN or VITE_META_PIXEL_ID' })
   }
 
   try {
