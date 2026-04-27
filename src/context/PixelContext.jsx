@@ -1,24 +1,17 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { initPixel, subscribeEventLog, eventLog } from '../utils/pixel'
+import { createContext, useContext, useState } from 'react'
+import { initPixel } from '../utils/pixel'
 
 const PixelContext = createContext(null)
 
-export function PixelProvider({ children }) {
+export const PixelProvider = ({ children }) => {
   const [pixelId, setPixelIdState] = useState(() => {
     const id = localStorage.getItem('pixelId') || import.meta.env.VITE_META_PIXEL_ID || ''
     if (id) initPixel(id)
     return id
   })
   const [initialized, setInitialized] = useState(() => !!pixelId)
-  const [log, setLog] = useState([...eventLog])
-  const [capiConfigured] = useState(() => !!import.meta.env.VITE_CAPI_TEST_EVENT_CODE)
 
-  useEffect(() => {
-    const unsub = subscribeEventLog(setLog)
-    return unsub
-  }, [])
-
-  function applyPixelId(id) {
+  const applyPixelId = (id) => {
     const trimmed = id.trim()
     setPixelIdState(trimmed)
     localStorage.setItem('pixelId', trimmed)
@@ -32,12 +25,10 @@ export function PixelProvider({ children }) {
   }
 
   return (
-    <PixelContext.Provider value={{ pixelId, applyPixelId, initialized, log, capiConfigured }}>
+    <PixelContext.Provider value={{ pixelId, applyPixelId, initialized }}>
       {children}
     </PixelContext.Provider>
   )
 }
 
-export function usePixel() {
-  return useContext(PixelContext)
-}
+export const usePixel = () => useContext(PixelContext)

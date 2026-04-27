@@ -2,30 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { round } from 'es-toolkit/math'
 import { sendServerEvent } from './capi'
 
-// Meta Pixel event log — shared across the app
-export const eventLog = []
-
 export const generateEventId = () => uuidv4()
-
-const log = (eventName, params) => {
-  const entry = {
-    id: Date.now() + Math.random(),
-    ts: new Date().toLocaleTimeString(),
-    event: eventName,
-    params,
-  }
-  eventLog.unshift(entry)
-  // Cap at 50 entries
-  if (eventLog.length > 50) eventLog.pop()
-  // Notify subscribers
-  subscribers.forEach((fn) => fn([...eventLog]))
-}
-
-const subscribers = new Set()
-export const subscribeEventLog = (fn) => {
-  subscribers.add(fn)
-  return () => subscribers.delete(fn)
-}
 
 const fbq = (...args) => {
   if (typeof window !== 'undefined' && window.fbq) {
@@ -65,8 +42,6 @@ export const initPixel = (pixelId) => {
 export const trackPageView = ({ event_id } = {}) => {
   fbq('track', 'PageView', {}, { eventID: event_id })
   sendServerEvent({ event_name: 'PageView', event_id })
-  log('PageView', { event_id })
-  return { event_name: 'PageView', event_id }
 }
 
 export const trackViewContent = ({ content_ids, content_name, content_type, value, currency, event_id, user_data }) => {
@@ -79,70 +54,52 @@ export const trackViewContent = ({ content_ids, content_name, content_type, valu
   }
   fbq('track', 'ViewContent', params, { eventID: event_id })
   sendServerEvent({ event_name: 'ViewContent', event_id, params, user_data })
-  log('ViewContent', { ...params, event_id })
-  return { event_name: 'ViewContent', event_id, params }
 }
 
 export const trackAddToCart = ({ content_ids, content_name, value, currency, quantity, event_id, user_data }) => {
   const params = { content_ids, content_name, value, currency: currency || 'USD', quantity: quantity || 1 }
   fbq('track', 'AddToCart', params, { eventID: event_id })
   sendServerEvent({ event_name: 'AddToCart', event_id, params, user_data })
-  log('AddToCart', { ...params, event_id })
-  return { event_name: 'AddToCart', event_id, params }
 }
 
 export const trackAddToWishlist = ({ content_ids, content_name, value, currency, event_id, user_data }) => {
   const params = { content_ids, content_name, value, currency: currency || 'USD' }
   fbq('track', 'AddToWishlist', params, { eventID: event_id })
   sendServerEvent({ event_name: 'AddToWishlist', event_id, params, user_data })
-  log('AddToWishlist', { ...params, event_id })
-  return { event_name: 'AddToWishlist', event_id, params }
 }
 
 export const trackInitiateCheckout = ({ content_ids, num_items, value, currency, event_id, user_data }) => {
   const params = { content_ids, num_items, value, currency: currency || 'USD' }
   fbq('track', 'InitiateCheckout', params, { eventID: event_id })
   sendServerEvent({ event_name: 'InitiateCheckout', event_id, params, user_data })
-  log('InitiateCheckout', { ...params, event_id })
-  return { event_name: 'InitiateCheckout', event_id, params }
 }
 
 export const trackAddPaymentInfo = ({ content_ids, value, currency, event_id, user_data }) => {
   const params = { content_ids, value, currency: currency || 'USD' }
   fbq('track', 'AddPaymentInfo', params, { eventID: event_id })
   sendServerEvent({ event_name: 'AddPaymentInfo', event_id, params, user_data })
-  log('AddPaymentInfo', { ...params, event_id })
-  return { event_name: 'AddPaymentInfo', event_id, params }
 }
 
 export const trackPurchase = ({ content_ids, num_items, value, currency, event_id, user_data }) => {
   const params = { content_ids, num_items, value: round(value, 2), currency: currency || 'USD' }
   fbq('track', 'Purchase', params, { eventID: event_id })
   sendServerEvent({ event_name: 'Purchase', event_id, params, user_data })
-  log('Purchase', { ...params, event_id })
-  return { event_name: 'Purchase', event_id, params }
 }
 
 export const trackSearch = ({ search_string, event_id, user_data }) => {
   const params = { search_string }
   fbq('track', 'Search', params, { eventID: event_id })
   sendServerEvent({ event_name: 'Search', event_id, params, user_data })
-  log('Search', { ...params, event_id })
-  return { event_name: 'Search', event_id, params }
 }
 
 export const trackLead = ({ event_id, user_data } = {}) => {
   fbq('track', 'Lead', {}, { eventID: event_id })
   sendServerEvent({ event_name: 'Lead', event_id, user_data })
-  log('Lead', { event_id })
-  return { event_name: 'Lead', event_id }
 }
 
 export const trackCompleteRegistration = ({ event_id, user_data } = {}) => {
   fbq('track', 'CompleteRegistration', {}, { eventID: event_id })
   sendServerEvent({ event_name: 'CompleteRegistration', event_id, user_data })
-  log('CompleteRegistration', { event_id })
-  return { event_name: 'CompleteRegistration', event_id }
 }
 
 // ─── Custom Events ───────────────────────────────────────────────────────────
@@ -159,8 +116,6 @@ export const trackPortableEspressoMakerViewProduct = (product, event_id) => {
   }
   fbq('trackCustom', 'PortableEspressoMaker_ViewProduct', params, { eventID: event_id })
   sendServerEvent({ event_name: 'PortableEspressoMaker_ViewProduct', event_id, params })
-  log('PortableEspressoMaker_ViewProduct', { ...params, event_id })
-  return { event_name: 'PortableEspressoMaker_ViewProduct', event_id, params }
 }
 
 // ─── Custom Conversions ──────────────────────────────────────────────────────
@@ -177,6 +132,4 @@ export const trackPurchasePortableEspressoMaker = ({ content_ids, num_items, val
   }
   fbq('trackCustom', 'Purchase_PortableEspressoMaker', params, { eventID: event_id })
   sendServerEvent({ event_name: 'Purchase_PortableEspressoMaker', event_id, params, user_data })
-  log('Purchase_PortableEspressoMaker', { ...params, event_id })
-  return { event_name: 'Purchase_PortableEspressoMaker', event_id, params }
 }
