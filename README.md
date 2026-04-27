@@ -51,7 +51,7 @@ cp .env.example .env
 Open `.env` and set your ID:
 
 ```
-VITE_PIXEL_ID=1234567890
+VITE_META_PIXEL_ID=1234567890
 ```
 
 > You can also skip this entirely and enter the Pixel ID directly in the **Event Log panel** on the right side of the running app — it saves to `localStorage`.
@@ -75,7 +75,7 @@ Open [http://localhost:5173](http://localhost:5173) in your browser.
 3. Import `Gabrieloxe/gab-meta-pixel-tester`.
 4. Framework will be auto-detected as **Vite** — no changes needed.
 5. Under **Environment Variables**, add:
-   - **Name:** `VITE_PIXEL_ID`
+   - **Name:** `VITE_META_PIXEL_ID`
    - **Value:** your Meta Pixel ID (e.g. `1234567890`)
 6. Click **Deploy**.
 
@@ -87,7 +87,7 @@ vercel login
 vercel --prod
 ```
 
-When prompted, set the `VITE_PIXEL_ID` environment variable or configure it later in the Vercel project settings.
+When prompted, set the `VITE_META_PIXEL_ID` environment variable or configure it later in the Vercel project settings.
 
 ---
 
