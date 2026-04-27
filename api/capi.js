@@ -42,7 +42,7 @@ export default async (req, res) => {
   }
 
   try {
-    const { event_name, event_id, params = {}, user_data = {}, event_source_url, test_event_code } = req.body
+    const { event_name, event_id, params = {}, user_data = {}, fbc, fbp, event_source_url, test_event_code } = req.body
 
     if (!event_name || !event_id) {
       return res.status(400).json({ error: 'event_name and event_id are required' })
@@ -56,6 +56,8 @@ export default async (req, res) => {
       ...hashUserData(user_data),
       client_ip_address: clientIp,
       client_user_agent: clientUserAgent,
+      fbc,
+      fbp,
     }
 
     const eventData = omitBy(
