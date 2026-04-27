@@ -41,7 +41,7 @@ export default function Header() {
 
   return (
     <header className="navbar bg-base-200/90 backdrop-blur-md border-b border-base-300 sticky top-0 z-50 px-4 gap-4">
-      <div className="navbar-start shrink-0">
+      <div className="navbar-start w-1/4 shrink-0">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-lg font-bold text-primary">PixelShop</span>
           <span className="badge badge-primary badge-sm font-semibold hidden sm:inline-flex">Meta Pixel Tester</span>
@@ -49,7 +49,7 @@ export default function Header() {
       </div>
 
       <div className="flex-1 flex justify-center px-4">
-        <form className="flex w-full max-w-md" onSubmit={handleSearch}>
+        <form className="flex w-full max-w-lg" onSubmit={handleSearch}>
           <input
             className="flex-1 h-12 px-4 rounded-l-lg bg-base-100 border border-base-300 border-r-0 text-sm placeholder:text-base-content/40 focus:outline-none focus:border-primary"
             type="text"
@@ -63,7 +63,7 @@ export default function Header() {
         </form>
       </div>
 
-      <div className="navbar-end shrink-0 gap-2">
+      <div className="navbar-end w-1/4 shrink-0 justify-end gap-2">
         <Link to="/" className="btn btn-ghost btn-sm">
           Shop
         </Link>
