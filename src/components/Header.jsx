@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import { generateEventId, trackSearch } from '../utils/pixel'
 
-export default function Header() {
+export const Header = () => {
   const { count } = useCart()
   const navigate = useNavigate()
   const location = useLocation()
@@ -15,7 +15,7 @@ export default function Header() {
     setQuery(searchParams.get('search') || '')
   }, [searchParams])
 
-  function handleSearch(e) {
+  const handleSearch = (e) => {
     e.preventDefault()
     const term = query.trim()
     if (!term) {

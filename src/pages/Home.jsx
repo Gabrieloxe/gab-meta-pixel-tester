@@ -1,15 +1,16 @@
 import { useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { products } from '../data/products'
-import ProductCard from '../components/ProductCard'
+import { useProducts } from '../hooks/useProducts'
+import { ProductCard } from '../components/ProductCard'
 import { generateEventId, trackPageView } from '../utils/pixel'
 
-const CATEGORIES = ['All', ...new Set(products.map((p) => p.category))]
-
-export default function Home() {
+export const Home = () => {
+  const { products, loading } = useProducts()
   const [params, setParams] = useSearchParams()
   const search = params.get('search') || ''
   const category = params.get('category') || 'All'
+
+  const categories = useMemo(() => ['All', ...new Set(products.map((p) => p.category))], [products])
 
   useEffect(() => {
     trackPageView({ event_id: generateEventId() })
@@ -22,11 +23,19 @@ export default function Home() {
         const matchSearch = p.name.toLowerCase().includes(search.toLowerCase())
         return matchCat && matchSearch
       }),
-    [search, category],
+    [products, search, category],
   )
 
-  function setCategory(cat) {
+  const setCategory = (cat) => {
     setParams(cat === 'All' ? {} : { category: cat })
+  }
+
+  if (loading) {
+    return (
+      <main className="p-6 max-w-6xl mx-auto flex justify-center py-20">
+        <span className="loading loading-spinner loading-lg"></span>
+      </main>
+    )
   }
 
   return (
@@ -47,7 +56,7 @@ export default function Home() {
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2 mb-6 items-center">
-        {CATEGORIES.map((cat) => (
+        {categories.map((cat) => (
           <button
             key={cat}
             className={`btn btn-sm rounded-full ${category === cat ? 'btn-primary' : 'btn-ghost border border-base-300'}`}

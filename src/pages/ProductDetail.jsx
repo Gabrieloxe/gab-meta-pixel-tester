@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { products } from '../data/products'
+import { useProducts } from '../hooks/useProducts'
 import { useCart } from '../context/CartContext'
 import {
   generateEventId,
@@ -10,10 +10,11 @@ import {
   trackPortableEspressoMakerViewProduct,
 } from '../utils/pixel'
 
-export default function ProductDetail() {
+export const ProductDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { dispatch, items } = useCart()
+  const { products, loading } = useProducts()
   const product = products.find((p) => p.id === id)
 
   useEffect(() => {
@@ -29,6 +30,14 @@ export default function ProductDetail() {
       trackPortableEspressoMakerViewProduct(product, generateEventId())
     }
   }, [product])
+
+  if (loading) {
+    return (
+      <main className="p-6 flex justify-center py-20">
+        <span className="loading loading-spinner loading-lg"></span>
+      </main>
+    )
+  }
 
   if (!product) {
     return (
@@ -48,7 +57,7 @@ export default function ProductDetail() {
     product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0
   const stars = Math.round(product.rating)
 
-  function handleAddToCart() {
+  const handleAddToCart = () => {
     dispatch({ type: 'ADD', product })
     trackAddToCart({
       content_ids: [product.id],
@@ -59,7 +68,7 @@ export default function ProductDetail() {
     })
   }
 
-  function handleWishlist() {
+  const handleWishlist = () => {
     trackAddToWishlist({
       content_ids: [product.id],
       content_name: product.name,
@@ -68,7 +77,7 @@ export default function ProductDetail() {
     })
   }
 
-  function handleBuyNow() {
+  const handleBuyNow = () => {
     dispatch({ type: 'ADD', product })
     trackAddToCart({
       content_ids: [product.id],

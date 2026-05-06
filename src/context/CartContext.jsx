@@ -2,7 +2,7 @@ import { createContext, useContext, useReducer } from 'react'
 
 const CartContext = createContext(null)
 
-function cartReducer(state, action) {
+const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD': {
       const existing = state.find((i) => i.id === action.product.id)
@@ -22,7 +22,7 @@ function cartReducer(state, action) {
   }
 }
 
-export function CartProvider({ children }) {
+export const CartProvider = ({ children }) => {
   const [items, dispatch] = useReducer(cartReducer, [])
 
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0)
@@ -31,6 +31,4 @@ export function CartProvider({ children }) {
   return <CartContext.Provider value={{ items, total, count, dispatch }}>{children}</CartContext.Provider>
 }
 
-export function useCart() {
-  return useContext(CartContext)
-}
+export const useCart = () => useContext(CartContext)

@@ -10,7 +10,7 @@ import {
   trackPurchasePortableEspressoMaker,
 } from '../utils/pixel'
 
-export default function CheckoutPage() {
+export const CheckoutPage = () => {
   const { items, total, dispatch } = useCart()
   const navigate = useNavigate()
   const [step, setStep] = useState(0) // 0 = shipping, 1 = payment
@@ -25,16 +25,14 @@ export default function CheckoutPage() {
     return null
   }
 
-  function update(field) {
-    return (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
-  }
+  const update = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
 
-  function handleInfoSubmit(e) {
+  const handleInfoSubmit = (e) => {
     e.preventDefault()
     setStep(1)
   }
 
-  function handlePaymentSubmit(e) {
+  const handlePaymentSubmit = (e) => {
     e.preventDefault()
     const contentIds = items.map((i) => i.id)
     const numItems = sumBy(items, (i) => i.qty)

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { generateEventId, trackAddToCart, trackAddToWishlist } from '../utils/pixel'
 
-export default function ProductCard({ product }) {
+export const ProductCard = ({ product }) => {
   const { dispatch } = useCart()
   const [wished, setWished] = useState(false)
   const discount =
     product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0
 
-  function handleAddToCart(e) {
+  const handleAddToCart = (e) => {
     e.preventDefault()
     dispatch({ type: 'ADD', product })
     trackAddToCart({
@@ -21,7 +21,7 @@ export default function ProductCard({ product }) {
     })
   }
 
-  function handleWishlist(e) {
+  const handleWishlist = (e) => {
     e.preventDefault()
     setWished((w) => !w)
     trackAddToWishlist({

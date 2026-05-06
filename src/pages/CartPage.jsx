@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { generateEventId, trackPageView, trackInitiateCheckout } from '../utils/pixel'
 
-export default function CartPage() {
+export const CartPage = () => {
   const { items, total, dispatch } = useCart()
   const navigate = useNavigate()
 
@@ -11,7 +11,7 @@ export default function CartPage() {
     trackPageView({ event_id: generateEventId() })
   }, [])
 
-  function handleCheckout() {
+  const handleCheckout = () => {
     const event_id = generateEventId()
     trackInitiateCheckout({
       content_ids: items.map((i) => i.id),
