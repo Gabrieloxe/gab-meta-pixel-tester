@@ -1,4 +1,4 @@
-import { products } from '../src/data/products.js'
+import products from '../src/data/products.json'
 
 export default (_req, res) => {
   res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
