@@ -44,15 +44,15 @@ export const CartPage = () => {
           {items.map((item) => (
             <div key={item.id} className="card card-bordered card-side bg-base-200">
               <figure className="w-24 shrink-0">
-                <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                <img src={item.image_link} alt={item.title} className="h-full w-full object-cover" />
               </figure>
               <div className="card-body p-4 gap-2">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <Link to={`/product/${item.id}`} className="font-semibold hover:text-primary text-sm">
-                      {item.name}
+                    <Link to={item.link} className="font-semibold hover:text-primary text-sm">
+                      {item.title}
                     </Link>
-                    <div className="badge badge-outline badge-xs mt-1">{item.category}</div>
+                    <div className="badge badge-outline badge-xs mt-1">{item.product_type}</div>
                   </div>
                   <button
                     className="btn btn-ghost btn-xs btn-circle text-base-content/40 hover:text-error"
@@ -84,7 +84,7 @@ export const CartPage = () => {
                       +
                     </button>
                   </div>
-                  <span className="font-bold">${(item.price * item.qty).toFixed(2)}</span>
+                  <span className="font-bold">${((item.sale_price || item.price) * item.qty).toFixed(2)}</span>
                 </div>
               </div>
             </div>

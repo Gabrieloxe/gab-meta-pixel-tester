@@ -109,10 +109,10 @@ export const trackPortableEspressoMakerViewProduct = (product, event_id) => {
     event_name: 'PortableEspressoMaker_ViewProduct',
     content_type: 'product',
     content_ids: [product.id],
-    content_name: product.name,
-    content_category: product.category,
-    value: product.price,
-    currency: 'SGD',
+    content_name: product.title,
+    content_category: product.product_type,
+    value: product.sale_price || product.price,
+    currency: product.currency || 'USD',
   }
   fbq('trackCustom', 'PortableEspressoMaker_ViewProduct', params, { eventID: event_id })
   sendServerEvent({ event_name: 'PortableEspressoMaker_ViewProduct', event_id, params })

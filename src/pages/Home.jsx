@@ -10,7 +10,7 @@ export const Home = () => {
   const search = params.get('search') || ''
   const category = params.get('category') || 'All'
 
-  const categories = useMemo(() => ['All', ...new Set(products.map((p) => p.category))], [products])
+  const categories = useMemo(() => ['All', ...new Set(products.map((p) => p.product_type))], [products])
 
   useEffect(() => {
     trackPageView({ event_id: generateEventId() })
@@ -19,8 +19,8 @@ export const Home = () => {
   const filtered = useMemo(
     () =>
       products.filter((p) => {
-        const matchCat = category === 'All' || p.category === category
-        const matchSearch = p.name.toLowerCase().includes(search.toLowerCase())
+        const matchCat = category === 'All' || p.product_type === category
+        const matchSearch = p.title.toLowerCase().includes(search.toLowerCase())
         return matchCat && matchSearch
       }),
     [products, search, category],

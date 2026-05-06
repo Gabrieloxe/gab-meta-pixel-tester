@@ -17,13 +17,16 @@ export const ProductDetail = () => {
   const { products, loading } = useProducts()
   const product = products.find((p) => p.id === id)
 
+  const sellingPrice = product ? (product.sale_price || product.price) : 0
+  const discount = product?.sale_price ? Math.round((1 - product.sale_price / product.price) * 100) : 0
+
   useEffect(() => {
     if (!product) return
     trackViewContent({
       content_ids: [product.id],
-      content_name: product.name,
+      content_name: product.title,
       content_type: 'product',
-      value: product.price,
+      value: sellingPrice,
       event_id: generateEventId(),
     })
     if (product.id === 'prod-003') {
@@ -53,16 +56,14 @@ export const ProductDetail = () => {
   }
 
   const inCart = items.some((i) => i.id === product.id)
-  const discount =
-    product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0
   const stars = Math.round(product.rating)
 
   const handleAddToCart = () => {
     dispatch({ type: 'ADD', product })
     trackAddToCart({
       content_ids: [product.id],
-      content_name: product.name,
-      value: product.price,
+      content_name: product.title,
+      value: sellingPrice,
       quantity: 1,
       event_id: generateEventId(),
     })
@@ -71,8 +72,8 @@ export const ProductDetail = () => {
   const handleWishlist = () => {
     trackAddToWishlist({
       content_ids: [product.id],
-      content_name: product.name,
-      value: product.price,
+      content_name: product.title,
+      value: sellingPrice,
       event_id: generateEventId(),
     })
   }
@@ -81,8 +82,8 @@ export const ProductDetail = () => {
     dispatch({ type: 'ADD', product })
     trackAddToCart({
       content_ids: [product.id],
-      content_name: product.name,
-      value: product.price,
+      content_name: product.title,
+      value: sellingPrice,
       quantity: 1,
       event_id: generateEventId(),
     })
@@ -97,13 +98,13 @@ export const ProductDetail = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         <figure className="relative rounded-2xl overflow-hidden aspect-[4/3]">
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+          <img src={product.image_link} alt={product.title} className="w-full h-full object-cover" />
           {discount > 0 && <span className="badge badge-error absolute top-3 left-3 px-3 py-1">-{discount}%</span>}
         </figure>
 
         <div className="flex flex-col gap-4">
-          <div className="badge badge-outline">{product.category}</div>
-          <h1 className="text-2xl font-bold">{product.name}</h1>
+          <div className="badge badge-outline">{product.product_type}</div>
+          <h1 className="text-2xl font-bold">{product.title}</h1>
 
           <div className="flex items-center gap-1 text-warning">
             {Array.from({ length: 5 }, (_, i) => (
@@ -115,8 +116,8 @@ export const ProductDetail = () => {
           </div>
 
           <div className="flex items-baseline gap-3">
-            <span className="text-3xl font-extrabold">${product.price.toFixed(2)}</span>
-            {discount > 0 && <span className="text-lg text-base-content/40 line-through">${product.originalPrice.toFixed(2)}</span>}
+            <span className="text-3xl font-extrabold">${sellingPrice.toFixed(2)}</span>
+            {discount > 0 && <span className="text-lg text-base-content/40 line-through">${product.price.toFixed(2)}</span>}
           </div>
 
           <p className="text-base-content/70 leading-relaxed">{product.description}</p>

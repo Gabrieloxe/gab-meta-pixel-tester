@@ -127,8 +127,8 @@ export const CheckoutPage = () => {
             <h2 className="card-title text-base">Order Summary</h2>
             {items.map((i) => (
               <div key={i.id} className="flex justify-between text-sm text-base-content/70">
-                <span className="truncate mr-2">{i.name} × {i.qty}</span>
-                <span className="shrink-0">${(i.price * i.qty).toFixed(2)}</span>
+                <span className="truncate mr-2">{i.title} × {i.qty}</span>
+                <span className="shrink-0">${((i.sale_price || i.price) * i.qty).toFixed(2)}</span>
               </div>
             ))}
             <div className="divider my-0" />
