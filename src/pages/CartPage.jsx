@@ -112,7 +112,7 @@ export const CartPage = () => {
               Proceed to Checkout
             </button>
             <p className="text-xs text-center text-base-content/40">
-              Fires <code className="bg-base-300 px-1 rounded">InitiateCheckout</code> on click
+              Fires <kbd className="kbd kbd-sm">InitiateCheckout</kbd> on click
             </p>
           </div>
         </div>

@@ -115,7 +115,7 @@ export const CheckoutPage = () => {
                   <button type="submit" className="btn btn-success">Place Order — ${total.toFixed(2)}</button>
                 </div>
                 <p className="text-xs text-center text-base-content/40">
-                  Fires <code className="bg-base-300 px-1 rounded">AddPaymentInfo</code> + <code className="bg-base-300 px-1 rounded">Purchase</code> on submit
+                  Fires <kbd className="kbd kbd-sm">AddPaymentInfo</kbd> + <kbd className="kbd kbd-sm">Purchase</kbd> on submit
                 </p>
               </div>
             </form>

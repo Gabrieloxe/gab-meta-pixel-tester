@@ -40,8 +40,7 @@ export const Home = () => {
 
   return (
     <main className="p-6 max-w-6xl mx-auto">
-      {/* Hero */}
-      <div className="hero bg-base-200 rounded-2xl mb-8 py-10 px-6">
+      <div className="hero bg-base-200 rounded-2xl mb-8">
         <div className="hero-content text-center">
           <div>
             <h1 className="text-3xl font-extrabold bg-gradient-to-r from-primary to-success bg-clip-text text-transparent">
@@ -54,12 +53,11 @@ export const Home = () => {
         </div>
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-2 mb-6 items-center">
         {categories.map((cat) => (
           <button
             key={cat}
-            className={`btn btn-sm rounded-full ${category === cat ? 'btn-primary' : 'btn-ghost border border-base-300'}`}
+            className={`btn btn-sm rounded-full ${category === cat ? 'btn-primary' : 'btn-outline'}`}
             onClick={() => setCategory(cat)}
           >
             {cat}
@@ -75,7 +73,6 @@ export const Home = () => {
         )}
       </div>
 
-      {/* Grid */}
       {filtered.length === 0 ? (
         <div className="text-center text-base-content/40 py-20">No products found.</div>
       ) : (

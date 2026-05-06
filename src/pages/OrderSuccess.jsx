@@ -3,15 +3,17 @@ import { generateEventId, trackCompleteRegistration } from '../utils/pixel'
 
 export const OrderSuccess = () => (
   <main className="min-h-[70vh] flex items-center justify-center p-6">
-    <div className="card bg-base-200 border border-base-300 max-w-md w-full shadow-xl">
+    <div className="card card-bordered bg-base-200 max-w-md w-full shadow-xl">
       <div className="card-body items-center text-center gap-5">
-        <div className="w-20 h-20 rounded-full bg-success flex items-center justify-center text-4xl text-success-content">
-          ✓
+        <div className="avatar placeholder">
+          <div className="bg-success text-success-content w-20 rounded-full">
+            <span className="text-4xl">✓</span>
+          </div>
         </div>
         <h1 className="card-title text-2xl">Order Placed!</h1>
         <p className="text-base-content/70">
-          Your test order was successful. <code className="bg-base-300 px-1 rounded">Purchase</code> and{' '}
-          <code className="bg-base-300 px-1 rounded">AddPaymentInfo</code> events have been fired.
+          Your test order was successful. <kbd className="kbd kbd-sm">Purchase</kbd> and{' '}
+          <kbd className="kbd kbd-sm">AddPaymentInfo</kbd> events have been fired.
         </p>
         <p className="text-sm text-base-content/50">
           Check the Pixel Event Log panel and your Facebook Events Manager to verify the events.
@@ -25,7 +27,7 @@ export const OrderSuccess = () => (
             className="btn btn-outline btn-sm w-full"
             onClick={() => trackCompleteRegistration({ event_id: generateEventId() })}
           >
-            Fire <code className="mx-1">CompleteRegistration</code>
+            Fire <kbd className="kbd kbd-sm">CompleteRegistration</kbd>
           </button>
         </div>
 
