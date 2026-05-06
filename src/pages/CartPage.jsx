@@ -42,17 +42,14 @@ export const CartPage = () => {
         {/* Items */}
         <div className="lg:col-span-2 flex flex-col gap-3">
           {items.map((item) => (
-            <div key={item.id} className="card bg-base-200 border border-base-300 flex-row">
+            <div key={item.id} className="card card-bordered card-side bg-base-200">
               <figure className="w-24 shrink-0">
-                <img src={item.image} alt={item.name} className="h-full w-full object-cover rounded-l-2xl" />
+                <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
               </figure>
               <div className="card-body p-4 gap-2">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <Link
-                      to={`/product/${item.id}`}
-                      className="font-semibold hover:text-primary transition-colors text-sm"
-                    >
+                    <Link to={`/product/${item.id}`} className="font-semibold hover:text-primary text-sm">
                       {item.name}
                     </Link>
                     <div className="badge badge-outline badge-xs mt-1">{item.category}</div>
@@ -95,7 +92,7 @@ export const CartPage = () => {
         </div>
 
         {/* Summary */}
-        <div className="card bg-base-200 border border-base-300 sticky top-20">
+        <div className="card card-bordered bg-base-200 sticky top-20">
           <div className="card-body gap-4">
             <h2 className="card-title text-base">Order Summary</h2>
             <div className="flex justify-between text-sm text-base-content/60">

@@ -96,15 +96,11 @@ export const ProductDetail = () => {
       </button>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-        {/* Image */}
-        <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+        <figure className="relative rounded-2xl overflow-hidden aspect-[4/3]">
           <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-          {discount > 0 && (
-            <span className="badge badge-error absolute top-3 left-3 font-bold text-sm px-3 py-1">-{discount}%</span>
-          )}
-        </div>
+          {discount > 0 && <span className="badge badge-error absolute top-3 left-3 px-3 py-1">-{discount}%</span>}
+        </figure>
 
-        {/* Info */}
         <div className="flex flex-col gap-4">
           <div className="badge badge-outline">{product.category}</div>
           <h1 className="text-2xl font-bold">{product.name}</h1>
@@ -120,9 +116,7 @@ export const ProductDetail = () => {
 
           <div className="flex items-baseline gap-3">
             <span className="text-3xl font-extrabold">${product.price.toFixed(2)}</span>
-            {discount > 0 && (
-              <span className="text-lg text-base-content/40 line-through">${product.originalPrice.toFixed(2)}</span>
-            )}
+            {discount > 0 && <span className="text-lg text-base-content/40 line-through">${product.originalPrice.toFixed(2)}</span>}
           </div>
 
           <p className="text-base-content/70 leading-relaxed">{product.description}</p>
@@ -141,8 +135,7 @@ export const ProductDetail = () => {
             </button>
           </div>
 
-          {/* Pixel event reference */}
-          <div className="card bg-base-200 border border-base-300">
+          <div className="card card-bordered bg-base-200">
             <div className="card-body p-4 gap-2">
               <h4 className="text-xs font-bold uppercase tracking-widest text-base-content/40">
                 Events fired on this page

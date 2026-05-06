@@ -10,7 +10,6 @@ export const Header = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [query, setQuery] = useState(searchParams.get('search') || '')
 
-  // Keep input in sync with URL when the search param changes
   useEffect(() => {
     setQuery(searchParams.get('search') || '')
   }, [searchParams])
@@ -40,47 +39,36 @@ export const Header = () => {
   }
 
   return (
-    <header className="navbar bg-base-200/90 backdrop-blur-md border-b border-base-300 sticky top-0 z-50 px-4 gap-4">
-      <div className="navbar-start w-1/4 shrink-0">
+    <header className="navbar bg-base-200/90 backdrop-blur-md border-b border-base-300 sticky top-0 z-50">
+      <div className="navbar-start">
         <Link to="/" className="flex items-center gap-2">
           <span className="text-lg font-bold text-primary">PixelShop</span>
           <span className="badge badge-primary badge-sm font-semibold hidden sm:inline-flex">Meta Pixel Tester</span>
         </Link>
       </div>
 
-      <div className="flex-1 flex justify-center px-4">
-        <form className="flex w-full max-w-lg" onSubmit={handleSearch}>
+      <div className="navbar-center">
+        <form className="join" onSubmit={handleSearch}>
           <input
-            className="flex-1 h-12 px-4 rounded-l-lg bg-base-100 border border-base-300 border-r-0 text-sm placeholder:text-base-content/40 focus:outline-none focus:border-primary"
+            className="input input-bordered join-item w-64"
             type="text"
             placeholder="Search products…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="submit" className="btn btn-primary rounded-l-none h-12 min-h-12">
+          <button type="submit" className="btn btn-primary join-item">
             Search
           </button>
         </form>
       </div>
 
-      <div className="navbar-end w-1/4 shrink-0 justify-end gap-2">
+      <div className="navbar-end gap-2">
         <Link to="/" className="btn btn-ghost btn-sm">
           Shop
         </Link>
         <Link to="/cart" className="btn btn-ghost btn-sm indicator">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="size-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.4 7h11.8M9 20a1 1 0 100 2 1 1 0 000-2zm8 0a1 1 0 100 2 1 1 0 000-2z"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" className="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.4 7h11.8M9 20a1 1 0 100 2 1 1 0 000-2zm8 0a1 1 0 100 2 1 1 0 000-2z" />
           </svg>
           {count > 0 && <span className="indicator-item badge badge-error badge-sm">{count}</span>}
         </Link>
