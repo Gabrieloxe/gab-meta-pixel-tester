@@ -44,7 +44,7 @@
     "link": "/product/prod-003",
     "image_link": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80",
     "brand": "PixelShop",
-    "product_type": "Kitchen",
+    "product_type": "Coffee",
     "rating": 4.3,
     "reviews": 412,
     "stock": 40
@@ -94,7 +94,7 @@
     "link": "/product/prod-006",
     "image_link": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&q=80",
     "brand": "PixelShop",
-    "product_type": "Kitchen",
+    "product_type": "Waterbottle",
     "rating": 4.9,
     "reviews": 5104,
     "stock": 100
