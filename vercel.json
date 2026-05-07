@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/api/products.json", "destination": "/api/products" },
+    { "source": "/api/products.csv", "destination": "/api/products-csv" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
