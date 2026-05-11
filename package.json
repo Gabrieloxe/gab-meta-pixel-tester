@@ -11,7 +11,9 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,json}\"",
     "upload:offline": "node scripts/upload-offline-events.mjs",
-    "upload:offline:dry": "node scripts/upload-offline-events.mjs --dry-run"
+    "upload:offline:dry": "node scripts/upload-offline-events.mjs --dry-run",
+    "campaign:create": "node scripts/create-single-image-campaign.mjs",
+    "campaign:create:dry": "node scripts/create-single-image-campaign.mjs --dry-run"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
