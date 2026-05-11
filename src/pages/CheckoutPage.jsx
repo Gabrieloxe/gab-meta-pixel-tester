@@ -36,6 +36,7 @@ export const CheckoutPage = () => {
     e.preventDefault()
     const contentIds = items.map((i) => i.id)
     const numItems = sumBy(items, (i) => i.qty)
+    const currency = items[0]?.currency
 
     const nameParts = form.name.trim().split(/\s+/)
     const user_data = {
@@ -44,9 +45,24 @@ export const CheckoutPage = () => {
       last_name: nameParts.slice(1).join(' ') || '',
     }
 
-    trackAddPaymentInfo({ content_ids: contentIds, value: total, event_id: generateEventId(), user_data })
-    trackPurchase({ content_ids: contentIds, num_items: numItems, value: total, event_id: generateEventId(), user_data })
-    trackPurchasePortableEspressoMaker({ content_ids: contentIds, num_items: numItems, value: total, event_id: generateEventId(), user_data })
+    trackAddPaymentInfo({ content_ids: contentIds, value: total, currency, event_id: generateEventId(), user_data })
+    trackPurchase({
+      content_ids: contentIds,
+      content_type: 'product',
+      num_items: numItems,
+      value: total,
+      currency,
+      event_id: generateEventId(),
+      user_data,
+    })
+    trackPurchasePortableEspressoMaker({
+      content_ids: contentIds,
+      num_items: numItems,
+      value: total,
+      currency,
+      event_id: generateEventId(),
+      user_data,
+    })
     dispatch({ type: 'CLEAR' })
     navigate('/order-success')
   }

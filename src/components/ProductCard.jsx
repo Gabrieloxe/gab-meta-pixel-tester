@@ -15,7 +15,9 @@ export const ProductCard = ({ product }) => {
     trackAddToCart({
       content_ids: [product.id],
       content_name: product.title,
+      content_type: 'product',
       value: sellingPrice,
+      currency: product.currency,
       quantity: 1,
       event_id: generateEventId(),
     })

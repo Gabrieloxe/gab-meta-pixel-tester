@@ -50,38 +50,51 @@ export const trackViewContent = ({ content_ids, content_name, content_type, valu
     content_name,
     content_type: content_type || 'product',
     value,
-    currency: currency || 'USD',
+    currency: currency || 'SGD',
   }
   fbq('track', 'ViewContent', params, { eventID: event_id })
   sendServerEvent({ event_name: 'ViewContent', event_id, params, user_data })
 }
 
-export const trackAddToCart = ({ content_ids, content_name, value, currency, quantity, event_id, user_data }) => {
-  const params = { content_ids, content_name, value, currency: currency || 'USD', quantity: quantity || 1 }
+export const trackAddToCart = ({ content_ids, content_name, content_type, value, currency, quantity, event_id, user_data }) => {
+  const params = {
+    content_ids,
+    content_name,
+    content_type: content_type || 'product',
+    value,
+    currency: currency || 'SGD',
+    quantity: quantity || 1,
+  }
   fbq('track', 'AddToCart', params, { eventID: event_id })
   sendServerEvent({ event_name: 'AddToCart', event_id, params, user_data })
 }
 
 export const trackAddToWishlist = ({ content_ids, content_name, value, currency, event_id, user_data }) => {
-  const params = { content_ids, content_name, value, currency: currency || 'USD' }
+  const params = { content_ids, content_name, value, currency: currency || 'SGD' }
   fbq('track', 'AddToWishlist', params, { eventID: event_id })
   sendServerEvent({ event_name: 'AddToWishlist', event_id, params, user_data })
 }
 
 export const trackInitiateCheckout = ({ content_ids, num_items, value, currency, event_id, user_data }) => {
-  const params = { content_ids, num_items, value, currency: currency || 'USD' }
+  const params = { content_ids, num_items, value, currency: currency || 'SGD' }
   fbq('track', 'InitiateCheckout', params, { eventID: event_id })
   sendServerEvent({ event_name: 'InitiateCheckout', event_id, params, user_data })
 }
 
 export const trackAddPaymentInfo = ({ content_ids, value, currency, event_id, user_data }) => {
-  const params = { content_ids, value, currency: currency || 'USD' }
+  const params = { content_ids, value, currency: currency || 'SGD' }
   fbq('track', 'AddPaymentInfo', params, { eventID: event_id })
   sendServerEvent({ event_name: 'AddPaymentInfo', event_id, params, user_data })
 }
 
-export const trackPurchase = ({ content_ids, num_items, value, currency, event_id, user_data }) => {
-  const params = { content_ids, num_items, value: round(value, 2), currency: currency || 'USD' }
+export const trackPurchase = ({ content_ids, num_items, content_type, value, currency, event_id, user_data }) => {
+  const params = {
+    content_ids,
+    content_type: content_type || 'product',
+    num_items,
+    value: round(value, 2),
+    currency: currency || 'SGD',
+  }
   fbq('track', 'Purchase', params, { eventID: event_id })
   sendServerEvent({ event_name: 'Purchase', event_id, params, user_data })
 }
@@ -112,7 +125,7 @@ export const trackPortableEspressoMakerViewProduct = (product, event_id) => {
     content_name: product.title,
     content_category: product.product_type,
     value: product.sale_price || product.price,
-    currency: product.currency || 'USD',
+    currency: product.currency || 'SGD',
   }
   fbq('trackCustom', 'PortableEspressoMaker_ViewProduct', params, { eventID: event_id })
   sendServerEvent({ event_name: 'PortableEspressoMaker_ViewProduct', event_id, params })

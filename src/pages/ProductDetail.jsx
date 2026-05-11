@@ -27,6 +27,7 @@ export const ProductDetail = () => {
       content_name: product.title,
       content_type: 'product',
       value: sellingPrice,
+      currency: product.currency,
       event_id: generateEventId(),
     })
     if (product.id === 'prod-003') {
@@ -63,7 +64,9 @@ export const ProductDetail = () => {
     trackAddToCart({
       content_ids: [product.id],
       content_name: product.title,
+      content_type: 'product',
       value: sellingPrice,
+      currency: product.currency,
       quantity: 1,
       event_id: generateEventId(),
     })
@@ -83,7 +86,9 @@ export const ProductDetail = () => {
     trackAddToCart({
       content_ids: [product.id],
       content_name: product.title,
+      content_type: 'product',
       value: sellingPrice,
+      currency: product.currency,
       quantity: 1,
       event_id: generateEventId(),
     })
